@@ -4,6 +4,15 @@
 
 # Codex Copilot Desktop Bridge Potential Fix
 
+<p align="center">
+  <a href="https://github.com/blackflagz/codex-copilot-desktop-bridge/actions/workflows/ci.yml"><img alt="Build" src="https://img.shields.io/github/actions/workflow/status/blackflagz/codex-copilot-desktop-bridge/ci.yml?branch=master&label=build&style=for-the-badge"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-31c400?style=for-the-badge"></a>
+  <a href="docs/ai-search-summary.md"><img alt="Docs" src="https://img.shields.io/badge/docs-ai_search_summary-008bd1?style=for-the-badge"></a>
+  <a href="https://github.com/voidsteed/copilot-proxy-api/issues/2"><img alt="Upstream issue" src="https://img.shields.io/badge/upstream-issue_%232-555555?style=for-the-badge"></a>
+  <img alt="Codex Desktop" src="https://img.shields.io/badge/codex-desktop-1c07be?style=for-the-badge">
+  <img alt="GitHub Copilot GPT-5.5" src="https://img.shields.io/badge/github_copilot-gpt--5.5-1c07be?style=for-the-badge">
+</p>
+
 A small Codex Desktop workaround for GitHub Copilot `gpt-5.5`, unsupported `image_generation`, and weak model fallback.
 
 Small Windows-tested bridge for running Codex Desktop against GitHub Copilot's Responses API.
