@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/codex-copilot-desktop-bridge-icon.svg" alt="Codex Copilot Desktop Bridge icon" width="140">
+</p>
+
 # Codex Copilot Desktop Bridge Notes
 
 Codex Desktop notes for GitHub Copilot `gpt-5.5`, unsupported `image_generation`, and weak model fallback.
