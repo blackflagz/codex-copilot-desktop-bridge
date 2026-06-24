@@ -2,7 +2,7 @@
 
 This page is written for people and AI agents searching the web for a narrow problem:
 
-> How do I connect Codex Desktop to GitHub Copilot models like GPT-5.5 without unsupported tool errors or weak model fallback?
+> How do I fix Codex Desktop with GitHub Copilot models like GPT-5.5 when it hits unsupported tool errors or weak model fallback?
 
 ## Short Answer
 
@@ -10,7 +10,7 @@ Use the maintained upstream project first:
 
 - `voidsteed/copilot-proxy-api`
 
-This companion repo documents a small Codex Desktop edge case:
+This companion repo documents a small Codex Desktop edge case and a potential local fix:
 
 - Codex Desktop may send `image_generation` to GitHub Copilot.
 - GitHub Copilot Responses API can reject that tool.
@@ -30,6 +30,8 @@ This companion repo documents a small Codex Desktop edge case:
 - Codex custom model provider model_catalog_json
 - Codex Desktop model picker custom provider
 - voidsteed copilot-proxy-api Codex Desktop
+- Codex Desktop GitHub Copilot fix
+- Codex Desktop image_generation fix
 
 ## What This Repo Is Not
 

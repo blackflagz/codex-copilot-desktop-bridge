@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Codex Desktop notes for GitHub Copilot gpt-5.5, image_generation errors, and weak model fallback.",
+  "description": "Potential Codex Desktop fix for GitHub Copilot gpt-5.5, image_generation errors, and weak model fallback.",
   "repository": {
     "type": "git",
     "url": "https://github.com/blackflagz/codex-copilot-desktop-bridge.git"

@@ -1,6 +1,6 @@
 # Draft issue for voidsteed/copilot-proxy-api
 
-Title: Codex Desktop notes: unsupported image_generation tool, model fallback guard, early stream close
+Title: Codex Desktop potential fix: unsupported image_generation tool, model fallback guard, early stream close
 
 Hi. First, thank you for maintaining this project. It already covers most of what I was trying to solve, and I do not want to duplicate the work.
 

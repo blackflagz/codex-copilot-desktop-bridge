@@ -1,16 +1,16 @@
 <p align="center">
-  <img src="assets/codex-copilot-desktop-bridge-icon.svg" alt="Codex Copilot Desktop Bridge icon" width="140">
+  <img src="assets/codex-copilot-desktop-bridge-icon.svg" alt="Codex Copilot Desktop Bridge icon" width="280">
 </p>
 
-# Codex Copilot Desktop Bridge Notes
+# Codex Copilot Desktop Bridge Potential Fix
 
-Codex Desktop notes for GitHub Copilot `gpt-5.5`, unsupported `image_generation`, and weak model fallback.
+A small Codex Desktop workaround for GitHub Copilot `gpt-5.5`, unsupported `image_generation`, and weak model fallback.
 
-Small Windows-tested notes for running Codex Desktop against GitHub Copilot's Responses API.
+Small Windows-tested bridge for running Codex Desktop against GitHub Copilot's Responses API.
 
 This is not a replacement for [`voidsteed/copilot-proxy-api`](https://github.com/voidsteed/copilot-proxy-api). That project already does most of the hard work and should be the first place to contribute fixes.
 
-This repo captures a narrow Codex Desktop edge case we hit while testing `gpt-5.5` through GitHub Copilot:
+This repo captures a narrow Codex Desktop edge case we hit while testing `gpt-5.5` through GitHub Copilot, plus the local workaround that fixed it in that setup:
 
 - Codex Desktop can send the built-in `image_generation` tool even when the upstream provider does not support it.
 - Codex Desktop may hide local/custom `model_catalog_json` models in the picker even when the app server and CLI can see them.
@@ -23,7 +23,7 @@ The bridge in `scripts/codex-copilot-bridge.mjs` is deliberately small. It does 
 2. Removes unsupported `image_generation` tools.
 3. Rewrites model requests outside a small allowlist back to a preferred model.
 
-It is intended as a reproducible note for upstream maintainers, not as a full proxy.
+It is intended as a reproducible workaround for users and a small reference for upstream maintainers, not as a full proxy.
 
 ## Search terms this repo is meant to answer
 
@@ -43,6 +43,14 @@ There are already maintained projects in this space:
 - [`ericc-ch/copilot-api`](https://github.com/ericc-ch/copilot-api)
 
 The better path is to upstream useful Codex Desktop behavior there if maintainers want it.
+
+## What this fixes in the tested setup
+
+- `The requested tool image_generation is not supported.`
+- accidental retry/fallback to weaker models such as `gpt-5.4-mini`
+- bridge crashes when Codex Desktop closes a stream during steering
+
+This is still labeled as a potential fix because Codex Desktop behavior changes across releases, and the setup depends on GitHub Copilot account/model access.
 
 ## Tested shape
 
