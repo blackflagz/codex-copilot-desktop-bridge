@@ -1,0 +1,29 @@
+{
+  "name": "codex-copilot-desktop-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Codex Desktop notes for GitHub Copilot gpt-5.5, image_generation errors, and weak model fallback.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blackflagz/codex-copilot-desktop-bridge.git"
+  },
+  "homepage": "https://github.com/blackflagz/codex-copilot-desktop-bridge#readme",
+  "keywords": [
+    "codex-desktop",
+    "github-copilot",
+    "gpt-5.5",
+    "api.githubcopilot.com",
+    "responses-api",
+    "image-generation",
+    "model-fallback",
+    "model-catalog-json"
+  ],
+  "scripts": {
+    "start": "node scripts/codex-copilot-bridge.mjs",
+    "check": "node --check scripts/codex-copilot-bridge.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,6 @@
+node_modules/
+.env
+*.log
+*.pid
+copilot-oauth-token.xml
+github-copilot-model-catalog.json
