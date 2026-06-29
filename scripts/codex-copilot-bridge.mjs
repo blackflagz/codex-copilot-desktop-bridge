@@ -59,7 +59,29 @@ function sanitizeResponsesBody(body) {
     });
   }
 
+  stripInputImages(body, notes);
+
   return { body, notes };
+}
+
+function stripInputImages(body, notes) {
+  if (!Array.isArray(body.input)) return;
+
+  let count = 0;
+  for (const item of body.input) {
+    if (!Array.isArray(item?.content)) continue;
+
+    item.content = item.content.map((part) => {
+      if (part?.type !== "input_image") return part;
+      count++;
+      return {
+        type: "input_text",
+        text: "[image omitted by local Codex-Copilot bridge to avoid 413 payload-too-large; ask user to resend only the one image that must be inspected]",
+      };
+    });
+  }
+
+  if (count > 0) notes.push(`input_images:${count}`);
 }
 
 function headers(token) {
