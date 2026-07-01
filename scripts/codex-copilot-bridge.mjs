@@ -3,6 +3,8 @@ import { spawnSync } from "node:child_process";
 
 const PORT = Number(process.env.CODEX_COPILOT_BRIDGE_PORT || 8776);
 const PRIMARY_MODEL = process.env.CODEX_COPILOT_PRIMARY_MODEL || "gpt-5.5";
+const MAX_INPUT_IMAGES = Number(process.env.CODEX_COPILOT_MAX_INPUT_IMAGES || 3);
+const MAX_BODY_BYTES = Number(process.env.CODEX_COPILOT_MAX_BODY_BYTES || 2_800_000);
 const ALLOWED_MODELS = new Set(
   (process.env.CODEX_COPILOT_ALLOWED_MODELS || `${PRIMARY_MODEL},claude-opus-4.8`)
     .split(",")
@@ -59,29 +61,57 @@ function sanitizeResponsesBody(body) {
     });
   }
 
-  stripInputImages(body, notes);
+  limitInputImages(body, notes);
+  shrinkBodyIfNeeded(body, notes);
 
   return { body, notes };
 }
 
-function stripInputImages(body, notes) {
+function limitInputImages(body, notes) {
   if (!Array.isArray(body.input)) return;
 
-  let count = 0;
+  let seen = 0;
+  let stripped = 0;
   for (const item of body.input) {
     if (!Array.isArray(item?.content)) continue;
 
     item.content = item.content.map((part) => {
       if (part?.type !== "input_image") return part;
-      count++;
+      seen++;
+      if (seen <= MAX_INPUT_IMAGES) return part;
+      stripped++;
       return {
         type: "input_text",
-        text: "[image omitted by local Codex-Copilot bridge to avoid 413 payload-too-large; ask user to resend only the one image that must be inspected]",
+        text: "[extra image omitted by local Codex-Copilot bridge to avoid 413 payload-too-large; resend this image alone if it must be inspected]",
       };
     });
   }
 
-  if (count > 0) notes.push(`input_images:${count}`);
+  if (stripped > 0) notes.push(`extra_input_images:${stripped}`);
+}
+
+function shrinkBodyIfNeeded(body, notes) {
+  let size = Buffer.byteLength(JSON.stringify(body), "utf8");
+  if (size <= MAX_BODY_BYTES) return;
+  if (!Array.isArray(body.input)) return;
+
+  let stripped = 0;
+  for (const item of body.input) {
+    if (!Array.isArray(item?.content)) continue;
+    item.content = item.content.map((part) => {
+      if (part?.type !== "input_image") return part;
+      if (Buffer.byteLength(JSON.stringify(body), "utf8") <= MAX_BODY_BYTES) return part;
+      stripped++;
+      return {
+        type: "input_text",
+        text: "[image omitted by local Codex-Copilot bridge because total request was too large; resend a smaller/cropped image if visual inspection is required]",
+      };
+    });
+  }
+
+  size = Buffer.byteLength(JSON.stringify(body), "utf8");
+  if (stripped > 0) notes.push(`oversize_input_images:${stripped}`);
+  if (size > MAX_BODY_BYTES) notes.push(`body_still_large:${size}`);
 }
 
 function headers(token) {
